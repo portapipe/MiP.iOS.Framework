@@ -14,18 +14,42 @@
 
 @implementation MiPFramework
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 
+//METODI FRAMEWORK
+
+//Seleziona una plist
+- (void)plist:(NSString*)nomeplist
+{
+    NSURL *filePlist = [[NSBundle mainBundle] URLForResource:nomeplist withExtension:@"plist"]; //Lets get the file location
+    
+    NSMutableDictionary *contenutoPlist = [NSDictionary dictionaryWithContentsOfURL:filePlist];
+}
+
+//Modifica un valore nella plist e la scrive nel file
+-(void)modificaPlist:(NSString*)chiave conValore:(NSString*)valore
+{
+    
+    [contenutoPlist setValue:valore forKey:chiave];
+    
+    NSString *errorePlist = nil;
+    
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:contenutoPlist format:NSPropertyListXMLFormat_v1_0 errorDescription:&errorePlist];
+    
+    // check is plistData exists
+    if(plistData)
+    {
+        // write plistData to our Data.plist file
+        [plistData writeToFile:[NSString stringWithFormat:@"%@",filePlist] atomically:YES];
+    }
+    else
+    {
+        NSLog(@"Errore nella modifica plist: %@", errorePlist);
+    }
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+
+
 
 @end
