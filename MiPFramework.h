@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MiPFramework : UIViewController{
+@interface MiPFramework : NSObject{
+    
+    //Per collegamento e modifica plist
+    NSMutableDictionary *contenutoPlist;
+    NSURL *filePlist;
+
 
 }
 
-
+//per collegamento e modifica plist
+-(void)plist:(NSString*)nomeplist;
+-(void)modificaPlist:(NSString*)chiave conValore:(NSString*)valore;
 
 
 
